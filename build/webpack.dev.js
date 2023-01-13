@@ -8,6 +8,8 @@ const { Configuration } = require("webpack");
  * @type {Configuration}
  */
 const devConfig = {
+    // webpack会自动注入到 process.env.NODE_ENV
+    // webpack打包前(webpack config, babel config)还不能访问到NODE_ENV,所以在跑script时通过cross-env注入变量
     mode: "development",
     devtool: "eval-cheap-module-source-map",
     devServer: {

@@ -1,5 +1,6 @@
 const path = require("path");
 // 把最终构建好的文件都引入到一个html中
+const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { Configuration } = require("webpack");
 
@@ -16,7 +17,7 @@ module.exports = {
         clean: true,
         publicPath: "/",
     },
-    
+
     module: {
         rules: [
             {
@@ -42,6 +43,9 @@ module.exports = {
             template: path.join(__dirname, "../public/index.html"),
             // 自动注入静态资源
             inject: true,
+        }),
+        new webpack.DefinePlugin({
+            "process.env.APP_ENV": JSON.stringify(process.env.APP_ENV),
         }),
     ],
 };
