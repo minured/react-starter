@@ -19,16 +19,24 @@ module.exports = {
     },
 
     module: {
+        // 总体从上往下,从右往左执行
         rules: [
             {
                 test: /.(ts|tsx)$/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        // 从右到左,先处理ts,再处理jsx
-                        presets: ["@babel/preset-react", "@babel/preset-typescript"],
-                    },
-                },
+                use: ["babel-loader"],
+            },
+            // sass同理
+            {
+                test: /.(css|less)$/,
+                // css-loader 解析.css
+                // style-loader把css插入到style标签
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    // postcss 兼容不同浏览器, 读取根目录的postcss.config.js配置
+                    "postcss-loader",
+                    "less-loader",
+                ],
             },
         ],
     },

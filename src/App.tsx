@@ -1,4 +1,5 @@
 import React from "react";
+import "./app.less";
 
 const App = () => {
     console.log(process.env.NODE_ENV);
