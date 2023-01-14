@@ -55,6 +55,45 @@ module.exports = {
                     filename: "static/images/[name][ext]",
                 },
             },
+            {
+                // 匹配字体图标文件
+                test: /.(woff2?|eot|ttf|otf)$/,
+                type: "asset",
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024,
+                    },
+                },
+                generator: {
+                    filename: "static/fonts/[name][ext]",
+                },
+            },
+            {
+                // 匹配字体图标文件
+                test: /.(woff2?|eot|ttf|otf)$/,
+                type: "asset",
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024,
+                    },
+                },
+                generator: {
+                    filename: "static/fonts/[name][ext]",
+                },
+            },
+            {
+                // 匹配媒体文件
+                test: /.(mp4|webm|ogg|mp3|wav|flac|aac)$/,
+                type: "asset",
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024,
+                    },
+                },
+                generator: {
+                    filename: "static/media/[name][ext]",
+                },
+            },
         ],
     },
 
