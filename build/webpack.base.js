@@ -112,4 +112,7 @@ module.exports = {
             "process.env.APP_ENV": JSON.stringify(process.env.APP_ENV),
         }),
     ],
+    cache: {
+        type: "filesystem",
+    },
 };
