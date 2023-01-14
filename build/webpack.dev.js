@@ -2,6 +2,8 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 const baseConfig = require("./webpack.base");
 const { Configuration } = require("webpack");
+// 不刷新网页 保留组件状态的热更新
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 /**
  * @type {Configuration}
@@ -21,6 +23,7 @@ const devConfig = {
             directory: path.join(__dirname, "../public"),
         },
     },
+    plugins: [new ReactRefreshWebpackPlugin()],
 };
 
 module.exports = merge(baseConfig, devConfig);

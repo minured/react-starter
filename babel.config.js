@@ -1,7 +1,9 @@
+const isDev = process.env.NODE_ENV === "development";
+
 module.exports = {
     presets: [
+        // 最新语法 => 低版本语法
         [
-            // 最新语法 => 低版本语法
             "@babel/preset-env",
             {
                 // 设置兼容目标浏览器版本,这里可以不写,babel-loader会自动寻找上面配置好的文件.browserslistrc
@@ -19,5 +21,9 @@ module.exports = {
         // ts => js
         "@babel/preset-typescript",
     ],
-    plugins: [["@babel/plugin-proposal-decorators", { legacy: true }]],
+    plugins: [
+        ["@babel/plugin-proposal-decorators", { legacy: true }],
+        // 开发模式下热更新
+        isDev && require.resolve("react-refresh/babel"),
+    ].filter(Boolean),
 };
