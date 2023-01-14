@@ -25,6 +25,7 @@ module.exports = {
                 test: /.(ts|tsx)$/,
                 use: ["babel-loader"],
             },
+
             // sass同理
             {
                 test: /.(css|less)$/,
@@ -37,6 +38,22 @@ module.exports = {
                     "postcss-loader",
                     "less-loader",
                 ],
+            },
+
+            // webpack使用file-loader和url-loader处理图片文件
+            // webpack5则使用自带的asset-module
+            {
+                test: /.(png|jpg|jpeg|gif|svg)$/,
+                type: "asset",
+                parser: {
+                    dataUrlCondition: {
+                        // 小于10kb转换成base64
+                        maxSize: 10 * 1024,
+                    },
+                },
+                generator: {
+                    filename: "static/images/[name][ext]",
+                },
             },
         ],
     },
