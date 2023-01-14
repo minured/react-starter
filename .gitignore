@@ -8,3 +8,6 @@ yarn-error.log
 # editor
 .vscode/
 .idea/
+
+#macos
+.DS_Store
