@@ -101,6 +101,9 @@ module.exports = {
     resolve: {
         // 引入模式时会按以下顺序 加后缀寻找文件
         extensions: [".js", ".tsx", ".ts"],
+        alias: {
+            "@": path.join(__dirname, "../src"),
+        },
     },
 
     plugins: [

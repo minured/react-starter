@@ -1,8 +1,8 @@
 import React from "react";
-import "./app.less";
-import ClassCom from "./demo/DecoratorCom";
-import amber from "../public/images/amber.png";
-import officialSite from "../public/images/official-site.png";
+import "@/app.less";
+import ClassCom from "@/demo/DecoratorCom";
+import amber from "@/assets/images/amber.png";
+import officialSite from "@/assets/images/official-site.png";
 
 const App = () => {
     console.log(process.env.NODE_ENV);
