@@ -14,7 +14,8 @@ const isDev = process.env.NODE_ENV === "development";
 module.exports = {
     entry: path.join(__dirname, "../src/index.tsx"),
     output: {
-        filename: "static/js/[name].js",
+        // js适合chunkhash,chunk不变文件名不变,充分利用浏览器缓存
+        filename: "static/js/[name].[chunkhash:8].js",
         path: path.join(__dirname, "../dist"),
         // webpack4需要配置clean-pack-plugin删除dist, webpack5内置
         clean: true,
@@ -70,7 +71,8 @@ module.exports = {
                     },
                 },
                 generator: {
-                    filename: "static/images/[name][ext]",
+                    // 静态资源适合contenthash, 这里的ext跟上面output不同,会自动带.
+                    filename: "static/images/[name].[contenthash:8][ext]",
                 },
             },
             {
@@ -83,20 +85,7 @@ module.exports = {
                     },
                 },
                 generator: {
-                    filename: "static/fonts/[name][ext]",
-                },
-            },
-            {
-                // 匹配字体图标文件
-                test: /.(woff2?|eot|ttf|otf)$/,
-                type: "asset",
-                parser: {
-                    dataUrlCondition: {
-                        maxSize: 10 * 1024,
-                    },
-                },
-                generator: {
-                    filename: "static/fonts/[name][ext]",
+                    filename: "static/fonts/[name].[contenthash:8][ext]",
                 },
             },
             {
@@ -109,7 +98,7 @@ module.exports = {
                     },
                 },
                 generator: {
-                    filename: "static/media/[name][ext]",
+                    filename: "static/media/[name].[contenthash:8][ext]",
                 },
             },
         ],
