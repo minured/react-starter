@@ -4,6 +4,9 @@ const { Configuration } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const globAll = require("glob-all");
+const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
+const path = require("path");
 
 /**
  * @type {Configuration}
@@ -13,6 +16,17 @@ const prodConfig = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: "static/css/[name].[contenthash].css",
+        }),
+        // 清理无用css
+        new PurgeCSSPlugin({
+            // 检测src下所有tsx文件和public下index.html中使用的类名和id和标签名称
+            // 只打包这些文件中用到的样式
+            // 使用第三方ui库配合safelist,避免删除库的类名
+            // https://github.com/FullHuman/purgecss/tree/main/packages/purgecss-webpack-plugin
+            paths: globAll.sync([
+                `${path.join(__dirname, "../src")}/**/*.tsx`,
+                path.join(__dirname, "../public/index.html"),
+            ]),
         }),
     ],
     // 视实际情况,使用更多优化方法 https://webpack.docschina.org/configuration/optimization/
