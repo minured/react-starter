@@ -81,6 +81,10 @@ const prodConfig = {
             },
         },
     },
+    performance: {
+        // 性能提示
+        // hints: false,
+    },
 };
 
 module.exports = merge(baseConfig, prodConfig);
