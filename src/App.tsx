@@ -4,6 +4,25 @@ import ClassCom from "@/demo/DecoratorCom";
 import amber from "@/assets/images/amber.png";
 import officialSite from "@/assets/images/official-site.png";
 
+// prefetch
+const PreFetchDemo = lazy(
+    () =>
+        import(
+            /* webpackChunkName: "PreFetchDemo" */
+            /*webpackPrefetch: true*/
+            "@/demo/PreFetchDemo"
+        )
+);
+// preload
+const PreloadDemo = lazy(
+    () =>
+        import(
+            /* webpackChunkName: "PreloadDemo" */
+            /*webpackPreload: true*/
+            "@/demo/PreloadDemo"
+        )
+);
+
 // 会被单独打包
 const LazyComponent = lazy(() => import("@/demo/LazyCom"));
 
@@ -31,9 +50,18 @@ const App = () => {
                 load component
             </button>
             {visible && (
-                <Suspense>
-                    <LazyComponent />
-                </Suspense>
+                <>
+                    <Suspense>
+                        <LazyComponent />
+                    </Suspense>
+
+                    <Suspense fallback={null}>
+                        <PreloadDemo />
+                    </Suspense>
+                    <Suspense fallback={null}>
+                        <PreFetchDemo />
+                    </Suspense>
+                </>
             )}
         </>
     );
