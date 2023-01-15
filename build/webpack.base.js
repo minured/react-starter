@@ -23,7 +23,8 @@ module.exports = {
         rules: [
             {
                 test: /.(ts|tsx)$/,
-                use: ["babel-loader"],
+                // 多线程loader启动也需要时间,适合大型应用
+                use: ["thread-loader", "babel-loader"],
             },
 
             // sass同理
