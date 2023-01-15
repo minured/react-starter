@@ -3,6 +3,9 @@ const path = require("path");
 const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { Configuration } = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const isDev = process.env.NODE_ENV === "development";
 
 /**
  * 使用webpack config语法提示
@@ -38,7 +41,8 @@ module.exports = {
                 // css-loader 解析.css
                 // style-loader把css插入到style标签
                 use: [
-                    "style-loader",
+                    // 开发环境插入style标签,方便热更新, 生产环境抽离.css文件
+                    isDev ? "style-loader" : MiniCssExtractPlugin.loader,
                     "css-loader",
                     // postcss 兼容不同浏览器, 读取根目录的postcss.config.js配置
                     "postcss-loader",
@@ -46,7 +50,12 @@ module.exports = {
             },
             {
                 test: /.less$/,
-                use: ["style-loader", "css-loader", "postcss-loader", "less-loader"],
+                use: [
+                    isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader",
+                    "less-loader",
+                ],
             },
 
             // webpack使用file-loader和url-loader处理图片文件
