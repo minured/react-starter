@@ -21,7 +21,7 @@ module.exports = {
     module: {
         // 总体从上往下,从右往左执行
         rules: [
-            {   
+            {
                 // 后续可以分开ts与tsx的解析, 自定义babel-loader
                 // https://webpack.docschina.org/loaders/babel-loader/#customized-loader
                 test: /.(ts|tsx)$/,
@@ -112,6 +112,8 @@ module.exports = {
         alias: {
             "@": path.join(__dirname, "../src"),
         },
+        // 第三方模块只在根目录的node_modules查找,缩小搜索范围
+        modules: [path.join(__dirname, "../node_modules")],
     },
 
     plugins: [
