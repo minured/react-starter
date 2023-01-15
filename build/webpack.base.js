@@ -21,15 +21,20 @@ module.exports = {
     module: {
         // 总体从上往下,从右往左执行
         rules: [
-            {
+            {   
+                // 后续可以分开ts与tsx的解析, 自定义babel-loader
+                // https://webpack.docschina.org/loaders/babel-loader/#customized-loader
                 test: /.(ts|tsx)$/,
                 // 多线程loader启动也需要时间,适合大型应用
                 use: ["thread-loader", "babel-loader"],
+                // 只对src下ts使用loader
+                include: [path.join(__dirname, "../src")],
             },
 
             // sass同理
+            // 分开css/less 为了避免less-loader解析.css文件,优化效果的多寡需要看项目复杂度,需要实测,小项目为了方便不需要分开
             {
-                test: /.(css|less)$/,
+                test: /.css$/,
                 // css-loader 解析.css
                 // style-loader把css插入到style标签
                 use: [
@@ -37,8 +42,11 @@ module.exports = {
                     "css-loader",
                     // postcss 兼容不同浏览器, 读取根目录的postcss.config.js配置
                     "postcss-loader",
-                    "less-loader",
                 ],
+            },
+            {
+                test: /.less$/,
+                use: ["style-loader", "css-loader", "postcss-loader", "less-loader"],
             },
 
             // webpack使用file-loader和url-loader处理图片文件
