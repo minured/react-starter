@@ -14,7 +14,7 @@ const devConfig = {
     mode: "development",
     devtool: "eval-cheap-module-source-map",
     devServer: {
-        port: 3000,
+        port: 9527,
         // 开发环境关闭gzip,提升热更新速度
         compress: false,
         hot: true,
